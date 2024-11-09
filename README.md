@@ -22,8 +22,8 @@ require('discordStatus').setup({
     closeStatus = { nil },
 })
 ```
-- **discordEnvVariable:** The variable name of your discord token. If provided, discordStatus.nvim will search for a .env file in the neovim config's root directory for this variable.
-- **discordAuthToken:** Alternatively provide the auth token yourself.
+- **discordEnvVariable:** The environment variable name of your discord token. Apart from setting an environment variable normally, you can add a .env file in your neovim config's root directory and discordStatus.nvim will look for it here if not found otherwise.
+- **discordAuthToken:** Alternatively provide the auth token directly and read it in yourself. Or hardcode it if you're unhinged.
 - **openStatus:** Table of possible status's to set when neovim is opened. If length > 1 a random status from this table will be chosen.
 - **closeStatus:** Alternatively change your status when neovim closes. `nil` value will simply clear out your status. If length > 1 a random status from this table will be chosen.
 
