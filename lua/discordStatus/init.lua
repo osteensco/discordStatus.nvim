@@ -15,7 +15,9 @@ function M.wait_for_env_var()
         local authToken = os.getenv(M.config.discordEnvVariable)
         if authToken ~= nil and authToken ~= "" then
             M.config.discordAuthToken = authToken
-            -- Stop the timer once the variable is found
+        end
+        -- Stop the timer once the variable is found or set by setup function
+        if M.config.discordAuthToken ~= nil then
             poll_timer:stop()
         end
     end))
