@@ -6,6 +6,12 @@ A simple plugin that sets your discord status for you when you open up neovim.
 <h2>Setup</h2>
 
 ```lua
+--Lazy setup
+    {
+        'osteensco/discordStatus.nvim',
+        dependencies = { "osteensco/dotenv.nvim" },
+    },
+
 -- Defaults
 require('discordStatus').setup({
     discordEnvVariable = "DISCORDTOKEN",
