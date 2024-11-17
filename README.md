@@ -14,18 +14,19 @@ A simple plugin that sets your discord status for you when you open up neovim.
 
 -- Defaults
 require('discordStatus').setup({
-    discordEnvVariable = "DISCORDTOKEN",
-    discordAuthToken = nil,
-    openStatus = {
+    discordEnvVariable = "DISCORDTOKEN", --The environment variable name of your discord token. 
+    discordAuthToken = nil, --Alternatively provide the auth token directly.
+    openStatus = { --Status(es) to set when neovim is opened.
         "Neovim BTW"
     },
-    closeStatus = { nil },
+    closeStatus = { nil }, --Status(es) to set when neovim is closed.
 })
 ```
-- **discordEnvVariable:** The environment variable name of your discord token. Apart from setting an environment variable normally, you can add a .env file in your neovim config's root directory and discordStatus.nvim will look for it here if not found otherwise.
-- **discordAuthToken:** Alternatively provide the auth token directly and read it in yourself. Or hardcode it if you're unhinged.
-- **openStatus:** Table of possible status's to set when neovim is opened. If length > 1 a random status from this table will be chosen.
-- **closeStatus:** Alternatively change your status when neovim closes. `nil` value will simply clear out your status. If length > 1 a random status from this table will be chosen.
+<h3> Some additional notes on the config: </h3>
+
+Apart from setting an environment variable normally, you can add a .env file in your neovim config's root directory and discordStatus.nvim will look for it here if not found otherwise.
+If you are providing your auth token directly, you will need to read it in yourself. 
+In `openStatus` and `closeStatus` fields, if the length is > 1 a random status from this table will be chosen. A value of `nil` will simply clear out your status.
 
 <h2>Discord auth token</h2>
 
