@@ -39,7 +39,8 @@ local function rand_item(tbl)
 end
 
 local function get_instances()
-    local command = "ps aux | grep nvim | grep -v grep | awk '{print $7}' | cut -d'/' -f2 | sort -n | tail -n 1"
+    local command =
+    "ps aux | grep nvim | grep -v grep | awk '{print $7}' | cut -d'/' -f2 | grep -v '?' | sort -n | tail -n 1"
     local handle = io.popen(command)
     local result = handle:read("*a")
     handle:close()
