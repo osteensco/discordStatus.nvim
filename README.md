@@ -14,6 +14,8 @@ A simple plugin that sets your discord status for you when you open up neovim.
 
 -- Defaults
 require('discordStatus').setup({
+    --Default behavior is status only changes when first neovim instance is started on your machine or last neovim instance is closed.
+    persistAcrossInstances = true, --Set to false if you want your status updated every time a neovim instance is opened/closed.
     discordEnvVariable = "DISCORDTOKEN", --The environment variable name of your discord token. 
     discordAuthToken = nil, --Alternatively provide the auth token directly.
     openStatus = { --Status(es) to set when neovim is opened.

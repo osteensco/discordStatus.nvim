@@ -1,6 +1,7 @@
 local M = {}
 
 M.config = {
+    persistAcrossInstances = true,
     discordEnvVariable = "DISCORDTOKEN",
     discordAuthToken = nil,
     openStatus = {
@@ -37,7 +38,31 @@ local function rand_item(tbl)
     return tbl[randInt]
 end
 
-local function set_status(status_text)
+local function get_instances()
+    local command = "ps aux | grep nvim | grep -v grep | awk '{print $7}' | cut -d'/' -f2 | sort -n | tail -n 1"
+    local handle = io.popen(command)
+    local result = handle:read("*a")
+    handle:close()
+
+    result = result:gsub("%s+", "")
+    return tonumber(result)
+end
+
+local function set_status(status_list)
+    local instances
+    if M.config.persistAcrossInstances then
+        instances = get_instances()
+    end
+
+    local status_text = -1
+    if not instances or instances == 0 then
+        status_text = rand_item(status_list)
+    end
+
+    if status_text == -1 then
+        return
+    end
+
     local poll_timer = vim.uv.new_timer()
 
     poll_timer:start(0, 1000, vim.schedule_wrap(function()
@@ -91,14 +116,13 @@ local function set_status(status_text)
     end))
 end
 
+
 function M.on_startup()
-    local status = rand_item(M.config.openStatus)
-    set_status(status)
+    set_status(M.config.openStatus)
 end
 
 function M.on_exit()
-    local status = rand_item(M.config.closeStatus)
-    set_status(status)
+    set_status(M.config.closeStatus)
 end
 
 function M.setup(opts)
